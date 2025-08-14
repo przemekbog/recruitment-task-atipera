@@ -1,8 +1,7 @@
-package com.example.recruitmenttaskatipera;
+package com.example.recruitmenttaskatipera.githubapi;
 
 import lombok.*;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.bind.ConstructorBinding;
 import org.springframework.context.annotation.Configuration;
 
 @Getter
