@@ -3,22 +3,21 @@ package com.example.recruitmenttaskatipera.githubapi;
 import com.example.recruitmenttaskatipera.githubapi.dto.GithubBranchPartialDTO;
 import com.example.recruitmenttaskatipera.githubapi.dto.GithubRepositoryPartialDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class GithubApiClient {
+public class GithubAPIClient {
     private final GithubAPIConfig config;
 
-    public GithubApiClient(@Autowired GithubAPIConfig config) {
+    public GithubAPIClient(@Autowired GithubAPIConfig config) {
         this.config = config;
     }
 
@@ -49,20 +48,24 @@ public class GithubApiClient {
         HttpEntity<String> entity = new HttpEntity<>(getRequestHeaders());
 
         RestTemplate template = new RestTemplate();
-        ResponseEntity<T> response = template.exchange(
-                urlPattern,
-                HttpMethod.GET,
-                entity,
-                responseType,
-                urlParameters
-        );
+        try {
+            ResponseEntity<T> response = template.exchange(
+                    urlPattern,
+                    HttpMethod.GET,
+                    entity,
+                    responseType,
+                    urlParameters
+            );
 
-        T repositories = response.getBody();
-        if(repositories == null) {
+            T repositories = response.getBody();
+            if(repositories == null) {
+                return Optional.empty();
+            }
+
+            return Optional.of(repositories);
+        } catch (HttpClientErrorException e) {
             return Optional.empty();
         }
-
-        return Optional.of(repositories);
     }
 
     private HttpHeaders getRequestHeaders() {
