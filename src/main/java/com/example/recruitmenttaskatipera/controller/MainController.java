@@ -2,7 +2,7 @@ package com.example.recruitmenttaskatipera.controller;
 
 import com.example.recruitmenttaskatipera.controller.response.BranchDTO;
 import com.example.recruitmenttaskatipera.controller.response.RepositoryDTO;
-import com.example.recruitmenttaskatipera.githubapi.GithubApiClient;
+import com.example.recruitmenttaskatipera.githubapi.GithubAPIClient;
 import com.example.recruitmenttaskatipera.githubapi.dto.GithubBranchPartialDTO;
 import com.example.recruitmenttaskatipera.githubapi.dto.GithubRepositoryPartialDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +19,9 @@ import java.util.List;
 @RestController
 public class MainController {
 
-    private final GithubApiClient githubApiClient;
+    private final GithubAPIClient githubApiClient;
 
-    public MainController(@Autowired GithubApiClient githubApiClient) {
+    public MainController(@Autowired GithubAPIClient githubApiClient) {
         this.githubApiClient = githubApiClient;
     }
 
