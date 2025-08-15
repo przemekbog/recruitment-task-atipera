@@ -41,3 +41,8 @@ Replace `{username}` with the GitHub username you want to fetch repositories for
 > ```shell
 > curl http://localhost:8080/{username}/repos
 > ```
+
+### 4. Run tests:
+```shell
+./gradlew test
+```
